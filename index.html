@@ -1,71 +1,47 @@
 <!DOCTYPE html>
-<section>
-  <h2 style="margin-bottom: 30px; font-size: 2.2rem; color: #ff4d6d;">Our Beautiful Memories 📸</h2>
+        but despite everything, we are stronger and closer than ever.
+        <br><br>
 
-  <div class="gallery">
-    <img src="photo1.jpg" class="photo" alt="Memory 1">
-    <img src="photo2.jpg" class="photo" alt="Memory 2">
-    <img src="photo3.jpg" class="photo" alt="Memory 3">
-    <img src="photo4.jpg" class="photo" alt="Memory 4">
-  </div>
-</section>
+        Thank you for loving me, healing me, understanding me, and making me feel so cared for.
+        <br><br>
 
-<!-- What I Love About You -->
-<section>
-  <h2 style="margin-bottom: 30px; font-size: 2.2rem; color: #ff4d6d;">What I Love About You 💖</h2>
+        I love your voice, your eyes, your smile, your soul,
+        your soft soft thighs, your cute little nose,
+        and every single thing about you.
+        <br><br>
 
-  <div class="love-list">
-    <div class="love-item">👀 Your beautiful eyes</div>
-    <div class="love-item">🎤 Your adorable voice</div>
-    <div class="love-item">😊 Your smile</div>
-    <div class="love-item">🤗 The way you care for me</div>
-    <div class="love-item">✨ Your pure soul</div>
-    <div class="love-item">💖 Everything about you</div>
-  </div>
-</section>
+        You are my peace, my comfort, my happiness,
+        and the best thing that has happened to me.
+        <br><br>
 
-<!-- Secret Button -->
-<section>
-  <h2 style="color: #ff4d6d; margin-bottom: 20px;">One Secret for You 😘</h2>
-  <button onclick="showKiss()">Tap for Your Reward 💋</button>
-  <div id="kissMessage">16 ko bohot saari kissies pending hain 😘💋❤️</div>
-</section>
+        HAPPY 4 MONTHS LOVEEEEEEEEEEEEEEEEEEEEEEEEE YOUUUUUUUUUUUUUUUUUUU THEEEEEEEEEEEE MOSTTTTTTTTTTTTTTTT ❤️❤️❤️
+      </p>
 
-<!-- Final Section -->
-<section class="final">
-  <h2>Forever Starts With Us ❤️</h2>
-  <p>
-    Dhingra Parivaar ki Bahu Rani — only you. ❤️<br><br>
-    No matter how many months pass,
-    I will always choose you.
-    <br><br>
-    I love you more than words can ever express. 💖
-  </p>
-</section>
+      <br>
+      <h2 class="center">RADHEE RADHEEE 🌷</h2>
+      <h2 class="center">AUW AUW AUWWWWW 🐺❤️</h2>
 
-<script>
-function scrollToMessage() {
-  document.getElementById('messageSection').scrollIntoView({
-    behavior: 'smooth'
-  });
+      <div class="center">
+        <button onclick="releaseHearts()">Tap for Infinite Love 💖</button>
+      </div>
+    </div>
+  `;
 }
 
-function showKiss() {
-  document.getElementById('kissMessage').style.display = 'block';
+function releaseHearts() {
+  const emojis = ['❤️','💖','💗','💞','💕','💘','🌷'];
 
-  for (let i = 0; i < 30; i++) {
-    let heart = document.createElement('div');
+  for (let i = 0; i < 120; i++) {
+    const heart = document.createElement('div');
     heart.className = 'heart';
-    heart.innerHTML = ['💖','❤️','💋','😘'][Math.floor(Math.random() * 4)];
+    heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
     heart.style.left = Math.random() * 100 + 'vw';
-    heart.style.fontSize = (20 + Math.random() * 20) + 'px';
-    heart.style.animationDuration = (3 + Math.random() * 3) + 's';
+    heart.style.fontSize = (18 + Math.random() * 24) + 'px';
+    heart.style.animationDuration = (4 + Math.random() * 5) + 's';
 
     document.body.appendChild(heart);
 
-    setTimeout(() => {
-      heart.remove();
-    }, 6000);
+    setTimeout(() => heart.remove(), 9000);
   }
 }
 </script>
