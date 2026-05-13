@@ -1,50 +1,37 @@
 <!DOCTYPE html>
-        but despite everything, we are stronger and closer than ever.
-        <br><br>
-
-        Thank you for loving me, healing me, understanding me, and making me feel so cared for.
-        <br><br>
-
-        I love your voice, your eyes, your smile, your soul,
-        your soft soft thighs, your cute little nose,
-        and every single thing about you.
-        <br><br>
-
-        You are my peace, my comfort, my happiness,
-        and the best thing that has happened to me.
-        <br><br>
-
-        HAPPY 4 MONTHS LOVEEEEEEEEEEEEEEEEEEEEEEEEE YOUUUUUUUUUUUUUUUUUUU THEEEEEEEEEEEE MOSTTTTTTTTTTTTTTTT ❤️❤️❤️
-      </p>
-
-      <br>
-      <h2 class="center">RADHEE RADHEEE 🌷</h2>
-      <h2 class="center">AUW AUW AUWWWWW 🐺❤️</h2>
-
-      <div class="center">
-        <button onclick="releaseHearts()">Tap for Infinite Love 💖</button>
-      </div>
-    </div>
-  `;
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy 4 Months My Love ❤️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#ffd1dc,#ffe6f0,#fff5f8);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  padding:20px;
 }
-
-function releaseHearts() {
-  const emojis = ['❤️','💖','💗','💞','💕','💘','🌷'];
-
-  for (let i = 0; i < 120; i++) {
-    const heart = document.createElement('div');
-    heart.className = 'heart';
-    heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-    heart.style.left = Math.random() * 100 + 'vw';
-    heart.style.fontSize = (18 + Math.random() * 24) + 'px';
-    heart.style.animationDuration = (4 + Math.random() * 5) + 's';
-
-    document.body.appendChild(heart);
-
-    setTimeout(() => heart.remove(), 9000);
-  }
+.card{
+  width:100%;max-width:430px;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(15px);
+  border-radius:30px;
+  box-shadow:0 25px 60px rgba(255,105,180,.2);
+  padding:28px;
+  text-align:center;
+  position:relative;
 }
-</script>
-
-</body>
+.title-script{
+  font-family:'Great Vibes',cursive;
+  font-size:3rem;
+  color:#ff4f8b;
+  margin-bottom:10px;
 </html>
