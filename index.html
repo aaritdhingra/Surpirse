@@ -1,1031 +1,494 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy 4 Months My Love 💖</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    /* ==================== NOTIFICATION POPUP ==================== */
-    .notification-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 10000;
-      animation: fadeIn 0.5s ease;
-      backdrop-filter: blur(10px);
-    }
-
-    .notification-box {
-      background: linear-gradient(145deg, #ffffff, #f0f0f0);
-      border-radius: 25px;
-      padding: 50px 40px;
-      max-width: 450px;
-      width: 90%;
-      box-shadow: 
-        0 30px 60px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.6);
-      animation: slideDown 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      text-align: center;
-      position: relative;
-      border: 3px solid rgba(255, 255, 255, 0.3);
-    }
-
-    .notification-icon {
-      font-size: 80px;
-      margin-bottom: 25px;
-      animation: bounce 2s infinite;
-      filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
-    }
-
-    .notification-box h2 {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 15px;
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-
-    .notification-from {
-      color: #333;
-      margin-bottom: 10px;
-      font-size: 18px;
-      font-weight: 600;
-    }
-
-    .notification-from strong {
-      color: #667eea;
-      font-size: 20px;
-    }
-
-    .notification-box p {
-      color: #666;
-      margin-bottom: 30px;
-      font-size: 16px;
-      line-height: 1.6;
-    }
-
-    .read-btn {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border: none;
-      padding: 18px 50px;
-      border-radius: 50px;
-      font-size: 20px;
-      cursor: pointer;
-      transition: all 0.4s ease;
-      font-weight: 600;
-      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .read-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: left 0.5s;
-    }
-
-    .read-btn:hover::before {
-      left: 100%;
-    }
-
-    .read-btn:hover {
-      transform: scale(1.08) translateY(-3px);
-      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
-    }
-
-    .read-btn:active {
-      transform: scale(0.95);
-    }
-
-    /* ==================== PHOTO GALLERY CONTAINER ==================== */
-    .gallery-container {
-      display: none;
-      min-height: 100vh;
-      padding: 60px 20px;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      position: relative;
-    }
-
-    .photo-card {
-      width: 380px;
-      height: 550px;
-      perspective: 1500px;
-      margin: 30px auto;
-      position: relative;
-    }
-
-    .photo-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transition: transform 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      transform-style: preserve-3d;
-    }
-
-    .photo-card.flipped .photo-inner {
-      transform: rotateY(180deg);
-    }
-
-    .photo-front, .photo-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      border-radius: 25px;
-      box-shadow: 
-        0 20px 60px rgba(0, 0, 0, 0.4),
-        0 0 0 1px rgba(255, 255, 255, 0.2);
-    }
-
-    .photo-front {
-      background: linear-gradient(145deg, #ffffff, #f5f5f5);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 25px;
-      border: 3px solid rgba(255, 255, 255, 0.5);
-    }
-
-    .photo-placeholder {
-      width: 100%;
-      height: 420px;
-      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 100px;
-      margin-bottom: 20px;
-      overflow: hidden;
-      box-shadow: 
-        0 10px 30px rgba(0, 0, 0, 0.2),
-        inset 0 -5px 15px rgba(0, 0, 0, 0.1);
-      position: relative;
-    }
-
-    .photo-placeholder::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(
-        45deg,
-        transparent,
-        rgba(255, 255, 255, 0.3),
-        transparent
-      );
-      animation: shimmer 3s infinite;
-    }
-
-    .photo-placeholder img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 20px;
-    }
-
-    .photo-caption {
-      font-size: 20px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 5px;
-    }
-
-    .photo-back {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      transform: rotateY(180deg);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
-      color: white;
-      text-align: center;
-      border: 3px solid rgba(255, 255, 255, 0.3);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .photo-back::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(
-        circle,
-        rgba(255, 255, 255, 0.1) 0%,
-        transparent 70%
-      );
-      animation: rotate 20s linear infinite;
-    }
-
-    .message-text {
-      font-size: 18px;
-      line-height: 1.8;
-      font-weight: 400;
-      position: relative;
-      z-index: 1;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .next-btn {
-      background: white;
-      color: #667eea;
-      border: none;
-      padding: 15px 40px;
-      border-radius: 50px;
-      font-size: 18px;
-      cursor: pointer;
-      margin-top: 25px;
-      font-weight: 600;
-      transition: all 0.4s ease;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-      position: relative;
-      z-index: 1;
-    }
-
-    .next-btn:hover {
-      transform: scale(1.1) translateY(-3px);
-      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4);
-    }
-
-    .next-btn:active {
-      transform: scale(0.95);
-    }
-
-    /* ==================== FALLING ANIMATION ==================== */
-    @keyframes fall {
-      0% {
-        transform: translateY(0) rotate(0deg) scale(1);
-        opacity: 1;
-      }
-      50% {
-        transform: translateY(60vh) rotate(180deg) scale(0.8);
-        opacity: 0.5;
-      }
-      100% {
-        transform: translateY(120vh) rotate(360deg) scale(0.3);
-        opacity: 0;
-      }
-    }
-
-    .falling {
-      animation: fall 2.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-      pointer-events: none;
-    }
-
-    /* ==================== FINAL MESSAGE ==================== */
-    .final-message {
-      display: none;
-      text-align: center;
-      padding: 60px 20px;
-      color: white;
-      animation: fadeIn 1.5s ease;
-      position: relative;
-      z-index: 100;
-    }
-
-    .final-message h1 {
-      font-size: 52px;
-      margin-bottom: 30px;
-      animation: pulse 2s infinite;
-      text-shadow: 
-        0 0 20px rgba(255, 255, 255, 0.5),
-        0 5px 30px rgba(0, 0, 0, 0.3);
-      font-weight: 700;
-      line-height: 1.4;
-    }
-
-    .final-message .love-text {
-      font-size: 56px;
-      background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f, #4d9fff, #c96dd8);
-      background-size: 300% 300%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: gradientMove 3s ease infinite, pulse 2s infinite;
-      font-weight: 800;
-      letter-spacing: 2px;
-    }
-
-    .final-message h2 {
-      font-size: 42px;
-      margin: 25px 0;
-      animation: bounce 2s infinite;
-      text-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-      font-weight: 700;
-    }
-
-    .emoji-line {
-      font-size: 60px;
-      margin: 30px 0;
-      animation: rotate 3s linear infinite;
-    }
-
-    .love-btn {
-      background: white;
-      color: #667eea;
-      border: none;
-      padding: 25px 60px;
-      border-radius: 50px;
-      font-size: 24px;
-      cursor: pointer;
-      margin-top: 50px;
-      font-weight: 700;
-      transition: all 0.4s ease;
-      box-shadow: 
-        0 15px 40px rgba(255, 255, 255, 0.3),
-        0 0 0 3px rgba(255, 255, 255, 0.2);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .love-btn::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: width 0.6s, height 0.6s;
-    }
-
-    .love-btn:hover::before {
-      width: 400px;
-      height: 400px;
-    }
-
-    .love-btn span {
-      position: relative;
-      z-index: 1;
-      transition: color 0.3s;
-    }
-
-    .love-btn:hover span {
-      color: white;
-    }
-
-    .love-btn:hover {
-      transform: scale(1.15) translateY(-5px);
-      box-shadow: 
-        0 20px 50px rgba(255, 255, 255, 0.5),
-        0 0 0 5px rgba(255, 255, 255, 0.3);
-    }
-
-    .love-btn:active {
-      transform: scale(0.95);
-    }
-
-    /* ==================== FLOATING HEARTS ==================== */
-    .heart {
-      position: fixed;
-      bottom: -100px;
-      animation: floatUp 7s ease-in-out forwards;
-      pointer-events: none;
-      z-index: 9999;
-      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
-    }
-
-    @keyframes floatUp {
-      0% {
-        bottom: -100px;
-        opacity: 0;
-        transform: translateX(0) rotate(0deg) scale(0.5);
-      }
-      10% {
-        opacity: 1;
-        transform: scale(1);
-      }
-      50% {
-        transform: translateX(100px) rotate(180deg) scale(1.2);
-      }
-      100% {
-        bottom: 120vh;
-        opacity: 0;
-        transform: translateX(-100px) rotate(360deg) scale(0.5);
-      }
-    }
-
-    /* ==================== BACKGROUND HEARTS ==================== */
-    .bg-hearts {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.1;
-    }
-
-    .bg-heart {
-      position: absolute;
-      font-size: 40px;
-      animation: float 20s infinite;
-    }
-
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0) rotate(0deg);
-      }
-      50% {
-        transform: translateY(-30px) rotate(180deg);
-      }
-    }
-
-    /* ==================== ANIMATIONS ==================== */
-    @keyframes fadeIn {
-      from { 
-        opacity: 0; 
-        transform: scale(0.9);
-      }
-      to { 
-        opacity: 1; 
-        transform: scale(1);
-      }
-    }
-
-    @keyframes slideDown {
-      from { 
-        transform: translateY(-200px) scale(0.5); 
-        opacity: 0; 
-      }
-      to { 
-        transform: translateY(0) scale(1); 
-        opacity: 1; 
-      }
-    }
-
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { 
-        transform: translateY(0); 
-      }
-      40% { 
-        transform: translateY(-20px); 
-      }
-      60% { 
-        transform: translateY(-10px); 
-      }
-    }
-
-    @keyframes pulse {
-      0%, 100% { 
-        transform: scale(1); 
-      }
-      50% { 
-        transform: scale(1.08); 
-      }
-    }
-
-    @keyframes rotate {
-      from { 
-        transform: rotate(0deg); 
-      }
-      to { 
-        transform: rotate(360deg); 
-      }
-    }
-
-    @keyframes shimmer {
-      0% {
-        transform: translateX(-100%) translateY(-100%);
-      }
-      100% {
-        transform: translateX(100%) translateY(100%);
-      }
-    }
-
-    @keyframes gradientMove {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-
-    /* ==================== HIDDEN CLASS ==================== */
-    .hidden {
-      display: none !important;
-    }
-
-    /* ==================== SPARKLES ==================== */
-    .sparkle {
-      position: fixed;
-      pointer-events: none;
-      animation: sparkleAnim 1.5s ease-out forwards;
-      z-index: 10000;
-    }
-
-    @keyframes sparkleAnim {
-      0% {
-        transform: scale(0) rotate(0deg);
-        opacity: 1;
-      }
-      50% {
-        transform: scale(1.5) rotate(180deg);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(0) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
-    /* ==================== RESPONSIVE DESIGN ==================== */
-    @media (max-width: 768px) {
-      .notification-box {
-        padding: 40px 30px;
-      }
-
-      .notification-icon {
-        font-size: 60px;
-      }
-
-      .notification-box h2 {
-        font-size: 24px;
-      }
-
-      .photo-card {
-        width: 320px;
-        height: 480px;
-      }
-
-      .photo-placeholder {
-        height: 350px;
-      }
-
-      .final-message h1 {
-        font-size: 36px;
-      }
-
-      .final-message .love-text {
-        font-size: 40px;
-      }
-
-      .final-message h2 {
-        font-size: 32px;
-      }
-
-      .love-btn {
-        padding: 20px 40px;
-        font-size: 20px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .photo-card {
-        width: 280px;
-        height: 420px;
-      }
-
-      .photo-placeholder {
-        height: 300px;
-        font-size: 60px;
-      }
-
-      .message-text {
-        font-size: 16px;
-      }
-
-      .final-message h1 {
-        font-size: 28px;
-      }
-
-      .final-message .love-text {
-        font-size: 32px;
-      }
-
-      .final-message h2 {
-        font-size: 26px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy 4 Months My Love 💖</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  padding: 15px;
+  position: relative;
+  background: linear-gradient(135deg, #ffd1dc, #ffe6f0, #fff5f8);
+}
+
+/* Background Heart with "I said I love you first" */
+.bg-heart {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  opacity: 0.08;
+  pointer-events: none;
+  text-align: center;
+}
+
+.bg-heart-emoji {
+  font-size: 280px;
+  color: #ff4f8b;
+  filter: blur(2px);
+}
+
+.bg-heart-text {
+  font-family: 'Great Vibes', cursive;
+  font-size: 42px;
+  color: #ff4f8b;
+  margin-top: -40px;
+  text-shadow: 0 2px 10px rgba(255, 79, 139, 0.3);
+}
+
+/* Card Container */
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(15px);
+  border-radius: 30px;
+  box-shadow: 0 20px 50px rgba(255, 105, 180, 0.25);
+  padding: 30px 25px;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+.title-script {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.8rem;
+  color: #ff4f8b;
+  margin-bottom: 15px;
+}
+
+h2 {
+  color: #ff4f8b;
+  margin-bottom: 12px;
+  font-size: 1.5rem;
+}
+
+p {
+  line-height: 1.8;
+  color: #555;
+  font-size: 15px;
+}
+
+button {
+  border: none;
+  background: linear-gradient(45deg, #ff4f8b, #ff77a9);
+  color: #fff;
+  padding: 14px 35px;
+  border-radius: 50px;
+  margin-top: 20px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(255, 79, 139, 0.35);
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(255, 79, 139, 0.45);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Flip Card */
+.flip-card {
+  perspective: 1200px;
+  margin: 20px 0;
+}
+
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 450px;
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease;
+}
+
+.flip-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.front {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.photo-container {
+  width: 100%;
+  height: 380px;
+  background: linear-gradient(135deg, #ffd1dc, #ffb3c6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.photo-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Fallback if image doesn't load */
+.photo-placeholder {
+  font-size: 80px;
+  color: rgba(255, 79, 139, 0.3);
+}
+
+.caption {
+  padding: 15px;
+  background: rgba(255, 79, 139, 0.95);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.back {
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 35px 25px;
+  background: linear-gradient(135deg, #fff, #ffeaf3);
+  color: #ff4f8b;
+  font-weight: 600;
+  line-height: 1.9;
+  font-size: 16px;
+  text-align: center;
+}
+
+/* Fall Animation */
+.fall {
+  animation: fall 1s ease-in forwards;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(120vh) rotate(25deg);
+    opacity: 0;
+  }
+}
+
+/* Letter */
+.letter {
+  max-height: 70vh;
+  overflow-y: auto;
+  text-align: left;
+  padding-right: 8px;
+}
+
+.letter::-webkit-scrollbar {
+  width: 6px;
+}
+
+.letter::-webkit-scrollbar-thumb {
+  background: #ff4f8b;
+  border-radius: 10px;
+}
+
+.letter h1 {
+  font-family: 'Great Vibes', cursive;
+  text-align: center;
+  font-size: 2.8rem;
+  color: #ff4f8b;
+  margin-bottom: 20px;
+}
+
+.letter p {
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.center {
+  text-align: center;
+}
+
+/* Floating Hearts */
+.heart {
+  position: fixed;
+  bottom: -50px;
+  pointer-events: none;
+  z-index: 9999;
+  animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+  0% {
+    bottom: -50px;
+    opacity: 0;
+    transform: translateX(0) rotate(0deg);
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    bottom: 110vh;
+    opacity: 0;
+    transform: translateX(var(--drift)) rotate(360deg);
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .title-script {
+    font-size: 2.2rem;
+  }
+  
+  h2 {
+    font-size: 1.3rem;
+  }
+  
+  .flip-inner {
+    height: 400px;
+  }
+  
+  .photo-container {
+    height: 330px;
+  }
+  
+  .bg-heart-emoji {
+    font-size: 200px;
+  }
+  
+  .bg-heart-text {
+    font-size: 32px;
+  }
+  
+  button {
+    padding: 12px 30px;
+    font-size: 16px;
+  }
+  
+  .letter h1 {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .flip-inner {
+    height: 360px;
+  }
+  
+  .photo-container {
+    height: 290px;
+  }
+}
+</style>
 </head>
 <body>
 
-  <!-- Background Floating Hearts -->
-  <div class="bg-hearts" id="bgHearts"></div>
+<!-- Background Heart -->
+<div class="bg-heart">
+  <div class="bg-heart-emoji">❤️</div>
+  <div class="bg-heart-text">I said I love you first</div>
+</div>
 
-  <!-- ==================== NOTIFICATION POPUP ==================== -->
-  <div class="notification-overlay" id="notification">
-    <div class="notification-box">
-      <div class="notification-icon">💌</div>
-      <h2>You have a new notification</h2>
-      <p class="notification-from"><strong>From: Aarit Dhingra</strong></p>
-      <p>Something incredibly special is waiting for you...<br>Open your heart and tap to read 💖</p>
-      <button class="read-btn" onclick="openGallery()">
-        Read 💖
-      </button>
-    </div>
-  </div>
+<!-- Main Card -->
+<div class="card" id="app">
+  <div class="title-script">Hey Love ❤️</div>
+  <h2>🔔 New Notification</h2>
+  <p>You have a new notification from <strong>Aarit Dhingra</strong></p>
+  <button onclick="startStory()">Read 💌</button>
+</div>
 
-  <!-- ==================== PHOTO GALLERY ==================== -->
-  <div class="gallery-container" id="gallery">
-    
-    <!-- Photo Card 1 -->
-    <div class="photo-card" id="card1">
-      <div class="photo-inner">
-        <div class="photo-front">
-          <div class="photo-placeholder">
-            <!-- APNI PHOTO YAHAN DAAL DO -->
-            <!-- <img src="photo1.jpg" alt="Our First Photo Together"> -->
-            📸
-          </div>
-          <div class="photo-caption">Our First Photo Together 💕</div>
-          <button class="next-btn" onclick="flipCard(1)">See Message ✨</button>
-        </div>
-        <div class="photo-back">
-          <div class="message-text">
-            Yeh humari pehli photo hai saath ki... ❤️<br><br>
-            Iss din se shuru hua tha humara safar. Har pal ko yaadgaar bana diya tumne.<br><br>
-            Thank you for being mine, my love! 💖
-          </div>
-          <button class="next-btn" onclick="nextPhoto(1)">Next Photo 💫</button>
-        </div>
-      </div>
-    </div>
+<script>
+const slides = [
+  {
+    image: 'photo1.jpg',
+    caption: 'Our first photo together ❤️',
+    message: 'This wasn\'t the day we started, but this moment? Pure magic. I knew something special was beginning.'
+  },
+  {
+    image: 'photo2.jpg',
+    caption: 'Caught by our friends 📸',
+    message: 'Kaushi ne khichwai thi yeh... we were shy at first, but we secretly loved every second of it! 🥰'
+  },
+  {
+    image: 'photo3.jpg',
+    caption: 'Pinterest aesthetic vibes 🌸',
+    message: 'Us being all aesthetic and cute! This is the kind of love that deserves to be captured forever. 💖'
+  },
+  {
+    image: 'photo4.jpg',
+    caption: 'Muuaaahh 😘💕',
+    message: 'Both our faces in one frame, pure cuteness overload! This is what happiness looks like. 🥰'
+  }
+];
 
-    <!-- Photo Card 2 -->
-    <div class="photo-card hidden" id="card2">
-      <div class="photo-inner">
-        <div class="photo-front">
-          <div class="photo-placeholder">
-            <!-- APNI PHOTO YAHAN DAAL DO -->
-            <!-- <img src="photo2.jpg" alt="My Favorite Smile"> -->
-            📸
-          </div>
-          <div class="photo-caption">My Favorite Smile 😊</div>
-          <button class="next-btn" onclick="flipCard(2)">See Message ✨</button>
-        </div>
-        <div class="photo-back">
-          <div class="message-text">
-            Tumhari yeh smile dekh ke mera din ban jata hai! 🥰<br><br>
-            Tumhare saath har moment special hai. Your voice, your eyes, everything about you is perfect!<br><br>
-            I love you so much! 💗
-          </div>
-          <button class="next-btn" onclick="nextPhoto(2)">Next Photo 💫</button>
-        </div>
-      </div>
-    </div>
+let current = 0;
+let flipped = false;
 
-    <!-- Photo Card 3 -->
-    <div class="photo-card hidden" id="card3">
-      <div class="photo-inner">
-        <div class="photo-front">
-          <div class="photo-placeholder">
-            <!-- APNI PHOTO YAHAN DAAL DO -->
-            <!-- <img src="photo3.jpg" alt="Us Being Cute"> -->
-            📸
+function startStory() {
+  renderSlide();
+}
+
+function renderSlide() {
+  const s = slides[current];
+  const app = document.getElementById('app');
+  app.className = 'card';
+  
+  app.innerHTML = `
+    <div class="flip-card">
+      <div class="flip-inner" id="flipInner">
+        <div class="face front">
+          <div class="photo-container">
+            <img src="${s.image}" alt="Memory" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="photo-placeholder" style="display:none;">📸</div>
           </div>
-          <div class="photo-caption">Us Being Cute 🌷</div>
-          <button class="next-btn" onclick="flipCard(3)">See Message ✨</button>
+          <div class="caption">${s.caption}</div>
         </div>
-        <div class="photo-back">
-          <div class="message-text">
-            Hum dono kitne cute lagte hain saath! 💕<br><br>
-            You are my peace, my comfort, my happiness. Tumhare soft soft thighs, cute little nose, everything! 🥰<br><br>
-            Can't imagine life without you! ❤️
-          </div>
-          <button class="next-btn" onclick="nextPhoto(3)">Next Photo 💫</button>
+        <div class="face back">
+          ${s.message}
         </div>
       </div>
     </div>
+    <button onclick="handleNext()" id="nextBtn">See Message ✨</button>
+  `;
+  
+  flipped = false;
+}
 
-    <!-- Photo Card 4 -->
-    <div class="photo-card hidden" id="card4">
-      <div class="photo-inner">
-        <div class="photo-front">
-          <div class="photo-placeholder">
-            <!-- APNI PHOTO YAHAN DAAL DO -->
-            <!-- <img src="photo4.jpg" alt="Forever & Always"> -->
-            📸
-          </div>
-          <div class="photo-caption">Forever & Always 💍</div>
-          <button class="next-btn" onclick="flipCard(4)">See Message ✨</button>
-        </div>
-        <div class="photo-back">
-          <div class="message-text">
-            4 months done aur lifetime baaki hai! 💖<br><br>
-            Tu hi hai meri Dhingra parivaar ki bahu raani! We are stronger and closer than ever! 🥰<br><br>
-            Thank you for loving me, healing me, understanding me! ❤️
-          </div>
-          <button class="next-btn" onclick="showFinalMessage()">Open Final Surprise 🎁</button>
-        </div>
+function handleNext() {
+  const flip = document.getElementById('flipInner');
+  const btn = document.getElementById('nextBtn');
+  
+  if (!flipped) {
+    flip.classList.add('flipped');
+    flipped = true;
+    btn.innerHTML = 'Next Photo 💫';
+    return;
+  }
+  
+  const app = document.getElementById('app');
+  app.classList.add('fall');
+  
+  setTimeout(() => {
+    current++;
+    if (current < slides.length) {
+      renderSlide();
+    } else {
+      showLetter();
+    }
+  }, 1000);
+}
+
+function showLetter() {
+  const app = document.getElementById('app');
+  app.className = 'card';
+  
+  app.innerHTML = `
+    <div class="letter">
+      <h1>Happy 4 Months ❤️</h1>
+      <p>
+        Soooooooooo... 4 monthsssss doneeeeeeeeeee ❤️💗🩷💖<br><br>
+        
+        Yeyyyyyyyiiiiiiieeeeeee... we movingggg stronglyyyyyyy hehehehehe! 🥰<br><br>
+        
+        Iss month bhi problems aayi, ladaiam hui, and tbh pehle se jyada hi hui hain buttttttttt... we are closer and stronger than ever! 💪❤️<br><br>
+        
+        Anddddd aiseeee hi aur close aate rahenge yahi goal hai... I promiseeeee humeshaaaaa aaapkaaa rahungaaaaa! 💍<br><br>
+        
+        See, I have noticed ki tune bohotttt change kia hai and abb bohot dhyaan rakhti hai ki meko akela na feel ho and all... achaaaa lagta hai dekh kr sachiiiii. Tu bestesttttttttttt haiiiiiiii yrrrrr! 🌟<br><br>
+        
+        You are the one who is healing me. Haan, time to time wo ghao wapis khul jaate hain, but I know thode time ke baad aap aise heal krdoge sab. ❤️‍🩹<br><br>
+        
+        I loveeeeee your voice, I loveeee your eyes, I loveeee your body... Aapki soft soft thighs, lambe lambe haath, pyaare pyaare paer, chotu si naak, chotu si shaqal, pyaare pyaare boobies aurrrrrr baaki sab bhi uppar se neeche tak! 😘<br><br>
+        
+        Phirrrr aapki thinking, aapki soul... Basicallyyyy aapke baareee me sabbbbb kuchhhhhh! 🥰<br><br>
+        
+        Muuuuaaaaahhhhhh! Aapke lips dekh kr kissi krne ka mann kr jata. 💋<br><br>
+        
+        Abhi 4 months complete hue hain and we will make sure ki this turns into lifetime! 💖👰<br><br>
+        
+        U are the bestesttttt everrr and ik u are trying sooo harddd to grow for me, and I will also try my best ki aapke liye best banu, sabse bestestttt, sabse bada green flaggg! 🚩💚<br><br>
+        
+        You are my peace, my comfort, my happiness, and the best thing that has happened to me. 🌈<br><br>
+        
+        <strong>HAPPY 4 MONTHS</strong><br>
+        <strong>LOVEEEEEEEEEEEEEEEEEEEEEEEEE YOUUUUUUUUUUUUUUUUUUUU THEEEEEEEEEEEE MOSTTTTTTTTTTTTTTTT</strong> ❤️❤️❤️
+      </p>
+      <br>
+      <h2 class="center">RADHEE RADHEEE 🌷</h2>
+      <h2 class="center">AUW AUW AUWWWWW 🐺❤️</h2>
+      <div class="center">
+        <button onclick="releaseHearts()">Tap for Infinite Love 💖</button>
       </div>
     </div>
+  `;
+}
 
-  </div>
+let heartsReleased = false;
 
-  <!-- ==================== FINAL MESSAGE ==================== -->
-  <div class="final-message" id="finalMessage">
-    <h1>🎉 HAPPY 4 MONTHS 🎉</h1>
-    <h1 class="love-text">LOVEEEEEEEEEEEEEEEEEEEEEEEEE</h1>
-    <h1 class="love-text">YOUUUUUUUUUUUUUUUUUUUU</h1>
-    <h1 class="love-text">THEEEEEEEEEEEE MOSTTTTTTTTTTTTTTTT</h1>
-    
-    <div class="emoji-line">❤️💖💗🩷💕💘</div>
-    
-    <h2>RADHEE RADHEEE 🌷</h2>
-    <h2>AUW AUW AUWWWWW 🐺❤️</h2>
-    
-    <br>
-    
-    <button class="love-btn" onclick="infiniteHearts()">
-      <span>Tap for Infinite Love 💖</span>
-    </button>
-
-    <br><br>
-    <div style="margin-top: 40px; font-size: 18px; line-height: 1.8; max-width: 800px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.3);">
-      Sooooooooo... 4 monthsssss doneeeeeee ❤️💗🩷💖 yeyyyyyyiiiiiiieeeeeee... we movingggg stronglyyyyyyy! 🥰<br><br>
+function releaseHearts() {
+  if (heartsReleased) return;
+  heartsReleased = true;
+  
+  const emojis = ['❤️', '💖', '💗', '💕', '💘', '🌷', '😘', '🥰', '💑', '💍'];
+  
+  for (let i = 0; i < 100; i++) {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = 'heart';
+      el.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
       
-      Problems aayi, ladaiam hui, but we are closer and stronger than ever! 💪❤️<br><br>
+      const startPos = Math.random() * 100;
+      const drift = (Math.random() - 0.5) * 200;
       
-      I promiseeeee humeshaaaaa aapkaaa rahungaaaaa... Tu bestesttttttt hai yrrrrr! 🌟<br><br>
+      el.style.left = startPos + 'vw';
+      el.style.setProperty('--drift', drift + 'px');
+      el.style.fontSize = (20 + Math.random() * 35) + 'px';
+      el.style.animationDuration = (5 + Math.random() * 4) + 's';
       
-      You are healing me, caring for me, and making me feel so loved! 💖<br><br>
+      document.body.appendChild(el);
       
-      I love your voice, your eyes, your smile, your soul, your soft soft thighs, your cute little nose, and every single thing about you! 😘<br><br>
-      
-      Dhingra parivaar ki bahu raani toh tu hi banegi! 💍👰<br><br>
-      
-      Loveeeeeee youuuuuu dherrr saaraaaaaa and this will turn into lifetime! 🥰❤️💖💗🩷
-    </div>
-  </div>
-
-  <!-- ==================== JAVASCRIPT ==================== -->
-  <script>
-    // ==================== BACKGROUND FLOATING HEARTS ====================
-    function createBgHearts() {
-      const bgHearts = document.getElementById('bgHearts');
-      const heartEmojis = ['❤️', '💖', '💗', '💕', '💘', '🌷'];
-      
-      for (let i = 0; i < 15; i++) {
-        const heart = document.createElement('div');
-        heart.className = 'bg-heart';
-        heart.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-        heart.style.left = Math.random() * 100 + '%';
-        heart.style.top = Math.random() * 100 + '%';
-        heart.style.animationDelay = Math.random() * 5 + 's';
-        heart.style.animationDuration = (15 + Math.random() * 10) + 's';
-        bgHearts.appendChild(heart);
-      }
-    }
-    createBgHearts();
-
-    // ==================== SPARKLE EFFECT ON CLICK ====================
-    document.addEventListener('click', function(e) {
-      createSparkles(e.clientX, e.clientY);
-    });
-
-    function createSparkles(x, y) {
-      const sparkles = ['✨', '⭐', '💫', '🌟', '💖'];
-      for (let i = 0; i < 3; i++) {
-        const sparkle = document.createElement('div');
-        sparkle.className = 'sparkle';
-        sparkle.innerHTML = sparkles[Math.floor(Math.random() * sparkles.length)];
-        sparkle.style.left = (x + (Math.random() - 0.5) * 50) + 'px';
-        sparkle.style.top = (y + (Math.random() - 0.5) * 50) + 'px';
-        sparkle.style.fontSize = (20 + Math.random() * 20) + 'px';
-        document.body.appendChild(sparkle);
-        
-        setTimeout(() => sparkle.remove(), 1500);
-      }
-    }
-
-    // ==================== OPEN GALLERY ====================
-    function openGallery() {
-      const notification = document.getElementById('notification');
-      const gallery = document.getElementById('gallery');
-      
-      // Fade out notification
-      notification.style.animation = 'fadeIn 0.5s ease reverse';
-      
-      setTimeout(() => {
-        notification.style.display = 'none';
-        gallery.style.display = 'flex';
-        document.getElementById('card1').classList.remove('hidden');
-        
-        // Create hearts celebration
-        createCelebrationHearts();
-      }, 500);
-    }
-
-    function createCelebrationHearts() {
-      const emojis = ['❤️', '💖', '💗', '💕', '💘', '🌷', '🥰'];
-      for (let i = 0; i < 30; i++) {
-        setTimeout(() => {
-          const heart = document.createElement('div');
-          heart.className = 'heart';
-          heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-          heart.style.left = Math.random() * 100 + 'vw';
-          heart.style.fontSize = (25 + Math.random() * 35) + 'px';
-          heart.style.animationDuration = (4 + Math.random() * 4) + 's';
-          heart.style.animationDelay = (Math.random() * 2) + 's';
-          document.body.appendChild(heart);
-          
-          setTimeout(() => heart.remove(), 8000);
-        }, i * 100);
-      }
-    }
-
-    // ==================== FLIP CARD ====================
-    function flipCard(cardNum) {
-      const card = document.getElementById('card' + cardNum);
-      card.classList.add('flipped');
-      
-      // Add flip sound effect (optional - you can add audio)
-      createSparkles(window.innerWidth / 2, window.innerHeight / 2);
-    }
-
-    // ==================== NEXT PHOTO ====================
-    function nextPhoto(cardNum) {
-      const currentCard = document.getElementById('card' + cardNum);
-      
-      // Add falling animation
-      currentCard.classList.add('falling');
-      
-      // Create hearts while falling
-      for (let i = 0; i < 15; i++) {
-        setTimeout(() => {
-          const emojis = ['❤️', '💖', '💗', '💕', '💘'];
-          const heart = document.createElement('div');
-          heart.className = 'heart';
-          heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-          heart.style.left = Math.random() * 100 + 'vw';
-          heart.style.fontSize = (20 + Math.random() * 30) + 'px';
-          heart.style.animationDuration = (3 + Math.random() * 3) + 's';
-          document.body.appendChild(heart);
-          
-          setTimeout(() => heart.remove(), 7000);
-        }, i * 50);
-      }
-      
-      setTimeout(() => {
-        currentCard.style.display = 'none';
-        
-        // Show next card
-        if (cardNum < 4) {
-          const nextCard = document.getElementById('card' + (cardNum + 1));
-          nextCard.classList.remove('hidden');
-          
-          // Scroll to top smoothly
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      }, 800);
-    }
-
-    // ==================== SHOW FINAL MESSAGE ====================
-    function showFinalMessage() {
-      const card4 = document.getElementById('card4');
-      const gallery = document.getElementById('gallery');
-      const finalMessage = document.getElementById('finalMessage');
-      
-      // Falling animation
-      card4.classList.add('falling');
-      
-      // Massive hearts celebration
-      for (let i = 0; i < 50; i++) {
-        setTimeout(() => {
-          const emojis = ['❤️', '💖', '💗', '💕', '💘', '🌷', '🧿', '🥰', '😍'];
-          const heart = document.createElement('div');
-          heart.className = 'heart';
-          heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-          heart.style.left = Math.random() * 100 + 'vw';
-          heart.style.fontSize = (25 + Math.random() * 40) + 'px';
-          heart.style.animationDuration = (4 + Math.random() * 4) + 's';
-          heart.style.animationDelay = (Math.random() * 2) + 's';
-          document.body.appendChild(heart);
-          
-          setTimeout(() => heart.remove(), 8000);
-        }, i * 40);
-      }
-      
-      setTimeout(() => {
-        gallery.style.display = 'none';
-        finalMessage.style.display = 'block';
-        
-        // Scroll to top
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        
-        // Auto start infinite hearts after 2 seconds
-        setTimeout(() => {
-          infiniteHearts();
-        }, 2000);
-      }, 1500);
-    }
-
-    // ==================== INFINITE HEARTS ====================
-    let heartsInterval;
-    let heartsActive = false;
-
-    function infiniteHearts() {
-      if (heartsActive) {
-        // Stop hearts
-        clearInterval(heartsInterval);
-        heartsActive = false;
-        return;
-      }
-      
-      heartsActive = true;
-      const emojis = ['❤️', '💖', '💗', '💞', '💕', '💘', '🌷', '🧿', '🥰', '😍', '💑', '👰', '💍', '🌹'];
-      
-      // Initial burst
-      for (let i = 0; i < 100; i++) {
-        setTimeout(() => {
-          createHeart(emojis);
-        }, i * 30);
-      }
-      
-      // Continuous hearts
-      heartsInterval = setInterval(() => {
-        for (let i = 0; i < 5; i++) {
-          createHeart(emojis);
-        }
-      }, 200);
-      
-      // Auto stop after 30 seconds (optional)
-      setTimeout(() => {
-        if (heartsActive) {
-          clearInterval(heartsInterval);
-          heartsActive = false;
-        }
-      }, 30000);
-    }
-
-    function createHeart(emojis) {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.fontSize = (20 + Math.random() * 40) + 'px';
-      heart.style.animationDuration = (4 + Math.random() * 5) + 's';
-      heart.style.animationDelay = (Math.random() * 2) + 's';
-      
-      // Random horizontal movement
-      const randomX = (Math.random() - 0.5) * 200;
-      heart.style.setProperty('--randomX', randomX + 'px');
-      
-      document.body.appendChild(heart);
-      
-      setTimeout(() => heart.remove(), 9000);
-    }
-
-    // ==================== PREVENT CONTEXT MENU (OPTIONAL) ====================
-    // Uncomment if you want to prevent right-click
-    // document.addEventListener('contextmenu', e => e.preventDefault());
-
-    // ==================== CONSOLE MESSAGE ====================
-    console.log('%c💖 Made with Love by Aarit for his special one 💖', 'color: #ff69b4; font-size: 20px; font-weight: bold;');
-  </script>
+      setTimeout(() => el.remove(), 10000);
+    }, i * 100);
+  }
+  
+  // Reset after 15 seconds
+  setTimeout(() => {
+    heartsReleased = false;
+  }, 15000);
+}
+</script>
 
 </body>
 </html>
