@@ -159,7 +159,6 @@ button:active {
   display: block;
 }
 
-/* Fallback if image doesn't load */
 .photo-placeholder {
   font-size: 80px;
   color: rgba(255, 79, 139, 0.3);
@@ -204,27 +203,114 @@ button:active {
   }
 }
 
-/* Letter */
-.letter {
-  max-height: 70vh;
-  overflow-y: auto;
+/* Envelope Animation */
+.envelope-container {
+  position: relative;
+  width: 100%;
+  max-width: 350px;
+  margin: 30px auto;
+}
+
+.envelope {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background: #ff4f8b;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.envelope::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 175px solid transparent;
+  border-right: 175px solid transparent;
+  border-top: 100px solid #ff77a9;
+  transform-origin: top;
+  transition: all 0.5s ease;
+}
+
+.envelope.open::before {
+  transform: rotateX(180deg);
+  border-top-color: #ff4f8b;
+}
+
+.envelope-letter {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  width: 90%;
+  background: white;
+  border-radius: 10px;
+  padding: 25px 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.envelope.open .envelope-letter {
+  transform: translateX(-50%) translateY(-180px);
+  max-height: 600px;
+  opacity: 1;
+}
+
+.envelope-text {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #555;
   text-align: left;
+  max-height: 450px;
+  overflow-y: auto;
   padding-right: 8px;
 }
 
-.letter::-webkit-scrollbar {
-  width: 6px;
+.envelope-text::-webkit-scrollbar {
+  width: 5px;
 }
 
-.letter::-webkit-scrollbar-thumb {
+.envelope-text::-webkit-scrollbar-thumb {
   background: #ff4f8b;
   border-radius: 10px;
+}
+
+.envelope-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  color: #ff4f8b;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.envelope-prompt {
+  text-align: center;
+  margin-top: 15px;
+  color: #fff;
+  font-size: 14px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Letter styling */
+.letter {
+  text-align: left;
 }
 
 .letter h1 {
   font-family: 'Great Vibes', cursive;
   text-align: center;
-  font-size: 2.8rem;
+  font-size: 2.5rem;
   color: #ff4f8b;
   margin-bottom: 20px;
 }
@@ -232,6 +318,7 @@ button:active {
 .letter p {
   font-size: 15px;
   line-height: 1.9;
+  margin-bottom: 15px;
 }
 
 .center {
@@ -297,8 +384,17 @@ button:active {
     font-size: 16px;
   }
   
-  .letter h1 {
-    font-size: 2.2rem;
+  .envelope::before {
+    border-left: 160px solid transparent;
+    border-right: 160px solid transparent;
+  }
+  
+  .envelope-title {
+    font-size: 1.7rem;
+  }
+  
+  .envelope-text {
+    font-size: 13px;
   }
 }
 
@@ -309,6 +405,11 @@ button:active {
   
   .photo-container {
     height: 290px;
+  }
+  
+  .envelope::before {
+    border-left: 140px solid transparent;
+    border-right: 140px solid transparent;
   }
 }
 </style>
@@ -334,22 +435,22 @@ const slides = [
   {
     image: 'photo1.jpg',
     caption: 'Our first photo together ❤️',
-    message: 'This wasn\'t the day we started, but this moment? Pure magic. I knew something special was beginning.'
+    message: 'Well technically our first pic together, but definitely when i was able to start opening up to you". This moment was pure magic and relief✨'
   },
   {
     image: 'photo2.jpg',
     caption: 'Caught by our friends 📸',
-    message: 'Kaushi ne khichwai thi yeh... we were shy at first, but we secretly loved every second of it! 🥰'
+    message: 'Yaad hai Kaushi ka birthday aur yeh photo wali demand uski ? We were so shy, pretending we didn\'t wanted to... but secretly loving every second 🙈💕'
   },
   {
     image: 'photo3.jpg',
-    caption: 'Pinterest aesthetic vibes 🌸',
-    message: 'Us being all aesthetic and cute! This is the kind of love that deserves to be captured forever. 💖'
+    caption: 'Pinterest-perfect us 🌸',
+    message: 'This screams aesthetic goals! But honestly, being with you makes every moment picture-perfect, no filter needed 📷💖'
   },
   {
     image: 'photo4.jpg',
-    caption: 'Muuaaahh 😘💕',
-    message: 'Both our faces in one frame, pure cuteness overload! This is what happiness looks like. 🥰'
+    caption: 'Just us being adorable 😘',
+    message: 'Both our faces, both our smiles, all our happiness in one frame. This is what forever looks like 🥰💫'
   }
 ];
 
@@ -415,44 +516,75 @@ function showLetter() {
   app.className = 'card';
   
   app.innerHTML = `
-    <div class="letter">
-      <h1>Happy 4 Months ❤️</h1>
-      <p>
-        Soooooooooo... 4 monthsssss doneeeeeeeeeee ❤️💗🩷💖<br><br>
-        
-        Yeyyyyyyyiiiiiiieeeeeee... we movingggg stronglyyyyyyy hehehehehe! 🥰<br><br>
-        
-        Iss month bhi problems aayi, ladaiam hui, and tbh pehle se jyada hi hui hain buttttttttt... we are closer and stronger than ever! 💪❤️<br><br>
-        
-        Anddddd aiseeee hi aur close aate rahenge yahi goal hai... I promiseeeee humeshaaaaa aaapkaaa rahungaaaaa! 💍<br><br>
-        
-        See, I have noticed ki tune bohotttt change kia hai and abb bohot dhyaan rakhti hai ki meko akela na feel ho and all... achaaaa lagta hai dekh kr sachiiiii. Tu bestesttttttttttt haiiiiiiii yrrrrr! 🌟<br><br>
-        
-        You are the one who is healing me. Haan, time to time wo ghao wapis khul jaate hain, but I know thode time ke baad aap aise heal krdoge sab. ❤️‍🩹<br><br>
-        
-        I loveeeeee your voice, I loveeee your eyes, I loveeee your body... Aapki soft soft thighs, lambe lambe haath, pyaare pyaare paer, chotu si naak, chotu si shaqal, pyaare pyaare boobies aurrrrrr baaki sab bhi uppar se neeche tak! 😘<br><br>
-        
-        Phirrrr aapki thinking, aapki soul... Basicallyyyy aapke baareee me sabbbbb kuchhhhhh! 🥰<br><br>
-        
-        Muuuuaaaaahhhhhh! Aapke lips dekh kr kissi krne ka mann kr jata. 💋<br><br>
-        
-        Abhi 4 months complete hue hain and we will make sure ki this turns into lifetime! 💖👰<br><br>
-        
-        U are the bestesttttt everrr and ik u are trying sooo harddd to grow for me, and I will also try my best ki aapke liye best banu, sabse bestestttt, sabse bada green flaggg! 🚩💚<br><br>
-        
-        You are my peace, my comfort, my happiness, and the best thing that has happened to me. 🌈<br><br>
-        
-        <strong>HAPPY 4 MONTHS</strong><br>
-        <strong>LOVEEEEEEEEEEEEEEEEEEEEEEEEE YOUUUUUUUUUUUUUUUUUUUU THEEEEEEEEEEEE MOSTTTTTTTTTTTTTTTT</strong> ❤️❤️❤️
-      </p>
-      <br>
-      <h2 class="center">RADHEE RADHEEE 🌷</h2>
-      <h2 class="center">AUW AUW AUWWWWW 🐺❤️</h2>
-      <div class="center">
-        <button onclick="releaseHearts()">Tap for Infinite Love 💖</button>
+    <h2 style="margin-bottom: 25px;">You've got mail! 💌</h2>
+    <div class="envelope-container">
+      <div class="envelope" id="envelope" onclick="openEnvelope()">
+        <div class="envelope-letter">
+          <div class="envelope-text">
+            <div class="envelope-title">To My Love 💖</div>
+            <p style="text-align: center; margin-bottom: 20px;">
+              <strong>Happy 4 Months, My Beautiful Girl! 🎉</strong>
+            </p>
+            
+            <p>So here we are... <strong>4 months</strong> of us! Can you believe it? 💕</p>
+            
+            <p>This month tested us, I won't lie. We fought more than before, problems knocked on our door... but you know what? We didn't just survive - we came out <strong>stronger and closer</strong> than ever! 💪❤️</p>
+            
+            <p>I've been watching you change, grow, evolve. The way you make sure I never feel alone, the little things you do to show you care... baby doll, you're amazing. You're genuinely the <strong>best thing</strong> that's ever happened to me, like genuinelyyyy. 🌟</p>
+            
+            <p>You're healing parts of me I didn't even know were broken. Sure, sometimes old wounds open up, but with you by my side, I know they'll close for good someday. ❤️‍🩹</p>
+            
+            <p>Can we talk about how gorgeous you are? That voice ufffff, those mesmorising eyes, that smile that fixes everything... And okay, your soft thighs, ehm ehm those osm b....., your cutesy little nosey, literally <strong>everything about you</strong> drives me crazy in the best way! 😍</p>
+            
+            <p>You're my <strong>SUKOON</strong> when life gets chaotic. My comfort when the world feels heavy. The only one who is trying to always understand me. <strong>MY WIFEYYYYY</strong> 🎁💖</p>
+            
+            <p>I see you trying so hard to grow for us, and trust me, I'm doing the same. We're both becoming better versions of ourselves, and that's what real love does, right? 🌱✨</p>
+            
+            <p>Four months down, and I promise you - this is turning into <strong>forever</strong>. You're going to be the Dhingra parivaar ki bahu raani, mark my words! 👰💍</p>
+            
+            <p style="text-align: center; margin-top: 25px; font-size: 17px; font-weight: 700; color: #ff4f8b;">
+              HAPPY 4 MONTHS MERI JAAAAAAAAAAAAAAAAANNNNNNNNNn!<br>
+              I LOVEEEEEE YOUUUUUU THEEEEEE MOSTTTTTTTT LAADDO RAANI!<br>
+              MORE THAN WORDS CAN SAY! 💖💖💖
+            </p>
+            
+            <p style="text-align: center; font-size: 20px; margin-top: 20px;">
+              <strong>RADHEE RADHEEE 🌷</strong><br>
+              <strong>AUWWWW AUWWWWW AUWWWWWWWWWW ❤️❤️💕💕❤️</strong>
+            </p>
+            
+            <p style="text-align: center; margin-top: 25px;">
+              <em>Forever yours,<br>Aarit 💕</em>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="envelope-prompt" id="envelopePrompt">
+        👆 Tap to open your love letter
       </div>
     </div>
+    <div class="center" id="heartBtn" style="display: none; margin-top: 20px;">
+      <button onclick="releaseHearts()">Tap for Infinite Love 💖</button>
+    </div>
   `;
+}
+
+let envelopeOpened = false;
+
+function openEnvelope() {
+  if (envelopeOpened) return;
+  
+  const envelope = document.getElementById('envelope');
+  const prompt = document.getElementById('envelopePrompt');
+  const heartBtn = document.getElementById('heartBtn');
+  
+  envelope.classList.add('open');
+  prompt.style.display = 'none';
+  envelopeOpened = true;
+  
+  setTimeout(() => {
+    heartBtn.style.display = 'block';
+  }, 1500);
 }
 
 let heartsReleased = false;
@@ -461,7 +593,7 @@ function releaseHearts() {
   if (heartsReleased) return;
   heartsReleased = true;
   
-  const emojis = ['❤️', '💖', '💗', '💕', '💘', '🌷', '😘', '🥰', '💑', '💍'];
+  const emojis = ['❤️', '💖', '💗', '💕', '💘', '🌷', '😘', '🥰', '💑', '💍', '🌹', '💝'];
   
   for (let i = 0; i < 100; i++) {
     setTimeout(() => {
@@ -483,7 +615,6 @@ function releaseHearts() {
     }, i * 100);
   }
   
-  // Reset after 15 seconds
   setTimeout(() => {
     heartsReleased = false;
   }, 15000);
